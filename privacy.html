@@ -1,285 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy – Tracklytics</title>
-    <meta name="description" content="Tracklytics privacy policy. Your data stays on your device and in your iCloud account.">
-    <link rel="icon" href="images/icon.png" type="image/png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracklytics Privacy Policy</title>
+    <meta name="description" content="Tracklytics privacy policy. Your data stays on your device and in your iCloud account." />
+    <link rel="icon" href="images/icon.png" type="image/png" />
     <style>
+        :root { color-scheme: dark; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        :root {
-            --bg:      #080a12;
-            --surface: #0f1120;
-            --blue:    #3b82f6;
-            --purple:  #8b5cf6;
-            --text:    #ffffff;
-            --text-2:  #94a3b8;
-            --text-3:  #475569;
-            --border:  rgba(255,255,255,0.07);
-            --grad:    linear-gradient(135deg, #3b82f6, #8b5cf6);
+        body {
+            min-height: 100vh;
+            background: #080a12;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', -apple-system, sans-serif;
-            line-height: 1.7;
+        a { color: inherit; text-decoration: none; }
+
+        /* ── HEADER ──────────────────────────────────────────── */
+        header {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 56rem;
+            padding: 2rem 2rem 1rem;
         }
 
         nav {
-            padding: 0 48px;
-            height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 0;
         }
 
-        .nav-logo {
+        .logo {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links {
             display: flex;
             align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .nav-logo-icon {
-            width: 34px; height: 34px;
-            background: var(--grad);
-            border-radius: 9px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: 900;
-            color: white;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .nav-logo-icon img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 9px;
-        }
-
-        .nav-logo-name {
-            font-size: 17px;
-            font-weight: 700;
-            color: white;
-        }
-
-        .nav-back {
-            color: var(--text-2);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
-        }
-        .nav-back:hover { color: white; }
-
-        main {
-            max-width: 760px;
-            margin: 0 auto;
-            padding: 72px 48px 100px;
-        }
-
-        .page-header { margin-bottom: 52px; }
-
-        .page-label {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #60a5fa;
-            margin-bottom: 14px;
-        }
-
-        .page-header h1 {
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            margin-bottom: 16px;
-        }
-
-        .page-header p {
-            color: var(--text-2);
-            font-size: 16px;
-        }
-
-        .highlight-box {
-            background: rgba(59,130,246,0.08);
-            border: 1px solid rgba(59,130,246,0.25);
-            border-radius: 14px;
-            padding: 20px 24px;
-            margin-bottom: 52px;
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-
-        .highlight-box-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-
-        .highlight-box p {
-            font-size: 15px;
-            color: #93c5fd;
-            line-height: 1.65;
-        }
-
-        .highlight-box strong { color: white; }
-
-        h2 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.4px;
-            margin-bottom: 14px;
-            margin-top: 52px;
-            padding-top: 52px;
-            border-top: 1px solid var(--border);
-        }
-
-        h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-
-        p {
-            font-size: 15px;
-            color: var(--text-2);
-            margin-bottom: 16px;
-            line-height: 1.75;
-        }
-
-        ul {
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.8);
             list-style: none;
-            margin-bottom: 16px;
         }
 
-        ul li {
-            font-size: 15px;
-            color: var(--text-2);
-            line-height: 1.7;
-            padding: 6px 0;
-            padding-left: 20px;
-            position: relative;
+        .nav-links a { transition: color 0.15s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a.active { color: #fff; font-weight: 600; }
+
+        /* ── MAIN ────────────────────────────────────────────── */
+        main {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 56rem;
+            padding: 0 2rem 4rem;
         }
 
-        ul li::before {
-            content: "–";
-            position: absolute;
-            left: 0;
-            color: var(--text-3);
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
         }
 
-        a { color: #60a5fa; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        .effective {
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.6);
+        }
 
-        strong { color: var(--text); font-weight: 600; }
-
-        footer {
-            padding: 40px 48px;
-            border-top: 1px solid var(--border);
+        .policy {
+            margin-top: 2rem;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 2rem;
+            font-size: 0.875rem;
+            line-height: 1.625;
+            color: rgba(255,255,255,0.8);
         }
 
-        .footer-copy { color: var(--text-3); font-size: 13px; }
-        footer a { color: var(--text-2); font-size: 14px; }
+        .policy h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .policy p,
+        .policy ul { margin-top: 0.5rem; }
+
+        .policy ul {
+            list-style: none;
+            padding-left: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .policy li::before {
+            content: "-";
+            display: inline-block;
+            width: 1.25rem;
+            margin-left: -1.25rem;
+        }
+
+        .policy a {
+            text-decoration: underline;
+            transition: opacity 0.15s;
+        }
+        .policy a:hover { opacity: 0.7; }
 
         @media (max-width: 640px) {
-            nav { padding: 0 20px; }
-            main { padding: 48px 20px 72px; }
-            .page-header h1 { font-size: 32px; }
-            footer { padding: 32px 20px; }
+            header { padding: 2rem 1.5rem 1rem; }
+            main   { padding: 0 1.5rem 4rem; }
+            .logo  { font-size: 0.875rem; }
+            h1     { font-size: 1.875rem; }
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="/" class="nav-logo">
-        <div class="nav-logo-icon">
-            <img src="images/icon.png" alt="Tracklytics icon"
-                 onerror="this.style.display='none';this.parentElement.textContent='T'">
-        </div>
-        <span class="nav-logo-name">Tracklytics</span>
-    </a>
-    <a href="/" class="nav-back">← Back</a>
-</nav>
+<header>
+    <nav>
+        <a href="/" class="logo">Tracklytics</a>
+        <ul class="nav-links">
+            <li><a href="mailto:ravewithme@gmail.com">Support</a></li>
+            <li><a href="privacy.html" class="active">Privacy</a></li>
+        </ul>
+    </nav>
+</header>
 
 <main>
-    <div class="page-header">
-        <div class="page-label">Legal</div>
+    <section>
         <h1>Privacy Policy</h1>
-        <p>Last updated: September 13, 2026</p>
-    </div>
+        <p class="effective">Effective date: September 13, 2026</p>
 
-    <div class="highlight-box">
-        <div class="highlight-box-icon">🔒</div>
-        <p><strong>The short version:</strong> Tracklytics does not collect, sell, or share your personal data. All your job application data lives on your device and in your personal iCloud account. We have no access to it.</p>
-    </div>
+        <div class="policy">
+            <section>
+                <h2>Overview</h2>
+                <p>This Privacy Policy is a legal document between Tracklytics (hereinafter referred to as \"this product\") and you (hereinafter referred to as \"user\") regarding the protection of user's personal information. As an independent developer, we are committed to protecting the privacy and security of user personal information and strive to provide safe and reliable products and services.</p>
+                <p>This Privacy Policy applies to all functions and services provided by this product, whether through an application, website, or other means. Please read and understand the entire content of this Privacy Policy carefully before using the functions and services of this product. By using the functions and services of this product, you agree to the content of this Privacy Policy.</p>
+                <p>This Privacy Policy will detail how we collect, use, protect, and share your personal information, as well as your related rights and obligations. If you have any questions about the content of this Privacy Policy, please feel free to contact us.</p>
+            </section>
 
-    <h2>Overview</h2>
-    <p>Tracklytics ("we", "our", or "the app") is a job application tracking app for iOS and macOS. This policy describes what information the app handles, how it handles it, and what choices you have.</p>
-    <p>We take privacy seriously. The app was designed from the ground up to keep your data in your hands.</p>
+            <section>
+                <h2>Data Collection and Use</h2>
+                <p>The term "data" in this Privacy Policy refers to any information related to your use of Tracklytics. We collect and use the following data:</p>
+                <p><strong>Usage Data</strong>: Includes interaction data when you use Tracklytics (such as features, buttons, and options used), frequency and duration of app or feature usage, system configurations (such as system language and region), etc. This data will be used to improve the functionality and user experience of Tracklytics.</p>
+                <p><strong>Diagnostic Data</strong>: Includes a range of information generated during your use of Tracklytics products. This information may include program logs, device information (such as operating system type and version, processor type, memory capacity, etc.), application settings information (such as feature switch status), and any program errors or crash reports that may occur while using Tracklytics. Diagnostic data is used solely to improve product stability, fix program errors, and enhance product performance.</p>
+                <p>We ensure strict compliance with relevant privacy laws in the collection, storage, and use of these data. All data collected are anonymous and cannot identify specific users. These data are obtained through automatic collection methods and do not contain sensitive personal information. The data will be used to improve product functionality and experience, thereby providing better services to users.</p>
+            </section>
 
-    <h2>Information We Do Not Collect</h2>
-    <p>Tracklytics does not collect, transmit, or have access to:</p>
-    <ul>
-        <li>Your job application data (companies, roles, stages, notes)</li>
-        <li>Screenshots or images you import into the app</li>
-        <li>Your name, email address, or any account information</li>
-        <li>Device identifiers, IP addresses, or location data</li>
-        <li>Usage analytics or behavioral data</li>
-    </ul>
-    <p>There are no analytics SDKs, advertising frameworks, or third-party data collection tools in this app.</p>
+            <section>
+                <h2>Third-Party Services</h2>
+                <p>This product utilizes third-party services to enhance service experience and functionality. These third-party service providers have their own privacy policies, which are not affiliated with Tracklytics. We do not assume any responsibility for the privacy practices of these third-party service providers, nor do we control or manage their data collection and usage practices. We recommend that you read and understand the privacy policies of these third-party services.</p>
+                <ul>
+                    <li>Apple iCloud</li>
+                    <li>Apistemic Logos</li>
+                    <li>Apple Foundation Models (on-device AI processing)</li>
+                </ul>
+            </section>
 
-    <h2>Your Job Application Data</h2>
-    <p>All job application data you enter — companies, roles, application stages, notes, and dates — is stored locally on your device using Apple's Core Data framework.</p>
-    <p>If you have iCloud enabled, this data syncs to your personal iCloud account via Apple's CloudKit framework. This sync is encrypted and managed entirely by Apple. We have no visibility into or access to your iCloud data.</p>
+            <section>
+                <h2>Information Security</h2>
+                <p>The data covered by this Privacy Policy is stored with reasonable security measures in place to prevent unauthorized access, disclosure, use, modification, or destruction. We employ appropriate technology and processes to protect your personal information and regularly evaluate the effectiveness of these security measures. However, please understand that no security measures can be 100% secure and reliable, therefore we cannot guarantee the absolute security of the information.</p>
+            </section>
 
-    <h2>Screenshot & AI Import Feature</h2>
-    <p>When you use the screenshot import feature, the image is analyzed entirely on-device using Apple's Vision framework. <strong>No screenshot or extracted text is ever transmitted to our servers or any third-party service.</strong> The process happens locally on your device, and only the extracted text (company name, job title, etc.) is used to pre-fill the application form.</p>
+            <section>
+                <h2>Changes to the Privacy Policy</h2>
+                <p>If you navigate to other websites or applications from Tracklytics, please be aware that their privacy policies may differ from ours. We do not assume any responsibility for the privacy policies of other websites or applications. Before using other websites or applications, be sure to read and understand their privacy policies. Your personal information will be protected by the privacy policies of these applications or websites when you use them. We reserve the right to modify this Privacy Policy at any time and will update this page within the Tracklytics product to inform users of the latest privacy policy. If you continue to use Tracklytics, it means you agree to the modified privacy policy. Therefore, please visit this page regularly to ensure you are aware of the latest privacy policy.</p>
+            </section>
 
-    <h2>In-App Purchases</h2>
-    <p>Tracklytics offers optional premium features via in-app purchase. All payment processing is handled entirely by Apple through the App Store and StoreKit. We do not receive or store your payment information — Apple processes all transactions and provides us only with a receipt confirmation.</p>
-    <p>For details on how Apple handles payment data, please see <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>.</p>
-
-    <h2>Notifications</h2>
-    <p>If you enable notifications, the app uses iOS's local notification system to send reminders. These are generated entirely on-device and are not routed through our servers.</p>
-
-    <h2>Third-Party Services</h2>
-    <p>Tracklytics does not integrate with any third-party analytics, advertising, or data collection services. The only third-party system the app interacts with is Apple's own infrastructure (iCloud, App Store, Push Notifications).</p>
-
-    <h2>Data Retention & Deletion</h2>
-    <p>Since we do not collect your data, there is nothing for us to delete. All your data is stored locally on your device and/or your iCloud account. To delete your data:</p>
-    <ul>
-        <li>Delete individual applications within the app</li>
-        <li>Delete the app from your device to remove all local data</li>
-        <li>Manage or delete iCloud data via your device's Settings → Apple ID → iCloud</li>
-    </ul>
-
-    <h2>Children's Privacy</h2>
-    <p>Tracklytics is not directed at children under the age of 13 and we do not knowingly collect any information from children.</p>
-
-    <h2>Changes to This Policy</h2>
-    <p>We may update this privacy policy from time to time. The updated date at the top of this page will reflect any changes. Continued use of the app after any changes constitutes acceptance of the updated policy.</p>
-
-    <h2>Contact</h2>
-    <p>If you have any questions about this privacy policy or the app, please reach out:</p>
-    <p><a href="mailto:ravewithme@gmail.com">ravewithme@gmail.com</a></p>
+            <section>
+                <h2>Contact Us</h2>
+                <p>We value your privacy. If you have any questions or concerns about this Privacy Policy, please contact us via email at <a href="mailto:ravewithme@gmail.com">ravewithme@gmail.com</a>. Thank you for choosing our product, and we appreciate your trust.</p>
+            </section>
+        </div>
+    </section>
 </main>
-
-<footer>
-    <a href="/">← Tracklytics</a>
-    <p class="footer-copy">© 2026 Tracklytics. All rights reserved.</p>
-</footer>
 
 </body>
 </html>
