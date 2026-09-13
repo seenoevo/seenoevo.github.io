@@ -1,289 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracklytics – Job Application Tracker</title>
-    <meta name="description" content="Track every job application from applied to offer. Visual analytics, AI-powered import, iCloud sync, and home screen widgets for iOS and macOS.">
-    <link rel="icon" href="images/icon.png" type="image/png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracklytics | Job Application Tracking</title>
+    <meta name="description" content="Track every job application from applied to offer. Visual analytics, AI-powered import, iCloud sync, and home screen widgets for iOS and macOS." />
+    <link rel="icon" href="images/icon.png" type="image/png" />
     <style>
+        :root { color-scheme: dark; }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        :root {
-            --bg:     #000000;
-            --text:   #ffffff;
-            --muted:  rgba(255,255,255,0.5);
-            --border: rgba(255,255,255,0.1);
-        }
-
-        html { scroll-behavior: smooth; }
-
         body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
+            min-height: 100vh;
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
         a { color: inherit; text-decoration: none; }
 
-        /* ── NAV ─────────────────────────────────────────────── */
+        /* ── HEADER ──────────────────────────────────────────── */
+        header {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 72rem;
+            padding: 2rem 2.5rem 1rem;
+        }
+
         nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 24px 48px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            padding: 0.5rem 0;
         }
 
         .logo {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            font-size: 15px;
-        }
-
-        .logo-icon {
-            width: 28px; height: 28px;
-            border-radius: 7px;
-            overflow: hidden;
-            flex-shrink: 0;
-            background: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .logo-icon img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 7px;
-        }
-
-        .nav-right {
-            display: flex;
-            gap: 28px;
+            gap: 1rem;
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.7);
             list-style: none;
         }
 
-        .nav-right a {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--muted);
+        .nav-links a {
             transition: color 0.15s;
         }
+        .nav-links a:hover { color: #fff; }
 
-        .nav-right a:hover { color: var(--text); }
-
-        /* ── HERO ────────────────────────────────────────────── */
-        .hero {
-            text-align: center;
-            padding: 80px 24px 0;
+        /* ── MAIN ────────────────────────────────────────────── */
+        main {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 72rem;
+            display: grid;
+            gap: 2.5rem;
+            padding: 0 2.5rem 4rem;
         }
 
-        .hero h1 {
-            font-size: clamp(38px, 5.5vw, 68px);
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1.08;
-            margin-bottom: 20px;
+        /* ── HERO TEXT ───────────────────────────────────────── */
+        .eyebrow {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.6);
         }
 
-        .hero-sub {
-            font-size: 17px;
-            color: var(--muted);
-            max-width: 440px;
-            margin: 0 auto 36px;
-            line-height: 1.6;
+        h1 {
+            margin-top: 1.25rem;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
 
-        /* App Store badge */
-        .badge-wrap {
-            display: inline-flex;
+        .hero-body {
+            margin-top: 1.25rem;
+            max-width: 36rem;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.75);
+        }
+
+        .feature-lines {
+            margin-top: 1.75rem;
+            display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 72px;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.75);
         }
 
-        .appstore-btn {
+        /* ── CTA ─────────────────────────────────────────────── */
+        .cta-row {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cta-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: white;
-            color: black;
-            border-radius: 12px;
-            padding: 10px 20px;
+            justify-content: center;
+            background: #fff;
+            color: #000;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
             cursor: default;
             opacity: 0.35;
+            border-radius: 0;
+            border: none;
         }
 
-        .appstore-btn svg { width: 20px; height: 20px; fill: black; flex-shrink: 0; }
-
-        .btn-text span { display: block; }
-        .btn-text .t1 { font-size: 9px; letter-spacing: 0.3px; opacity: 0.7; }
-        .btn-text .t2 { font-size: 17px; font-weight: 700; line-height: 1.1; }
-
-        .soon {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ── PHONE CLUSTER ───────────────────────────────────── */
-        .phones {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 0;
-            position: relative;
-            height: 540px;
-        }
-
-        .phone {
-            position: absolute;
-            border-radius: 44px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.12);
-        }
-
-        .phone img {
-            width: 100%;
-            display: block;
-        }
-
-        .phone-notch {
-            position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 72px; height: 22px;
-            background: #000;
-            border-radius: 0 0 12px 12px;
-            z-index: 2;
-        }
-
-        /* Center phone */
-        .phone-c {
-            width: 240px;
-            z-index: 3;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08);
-        }
-
-        /* Left phone */
-        .phone-l {
-            width: 200px;
-            z-index: 2;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-340px) rotate(-4deg);
-            opacity: 0.7;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.6);
-        }
-
-        /* Right phone */
-        .phone-r {
-            width: 200px;
-            z-index: 2;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(140px) rotate(4deg);
-            opacity: 0.7;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.6);
-        }
-
-        /* ── FEATURES ────────────────────────────────────────── */
-        #features {
-            padding: 100px 48px;
-            max-width: 680px;
-            margin: 0 auto;
-        }
-
-        .feat-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-
-        .feat-item {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .feat-num {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--muted);
-            min-width: 24px;
-            padding-top: 3px;
-        }
-
-        .feat-body h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .feat-body p {
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        /* ── DIVIDER ─────────────────────────────────────────── */
-        .divider {
-            width: 100%;
-            height: 1px;
-            background: var(--border);
+        .cta-note {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
         }
 
         /* ── SCREENSHOTS ─────────────────────────────────────── */
-        #screenshots {
-            padding: 100px 0 0;
-        }
-
-        .ss-heading {
-            text-align: center;
-            padding: 0 24px;
-            margin-bottom: 56px;
-        }
-
-        .ss-heading h2 {
-            font-size: clamp(24px, 3vw, 36px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-        }
-
-        .ss-heading p {
-            font-size: 15px;
-            color: var(--muted);
+        .ss-section {
+            width: 100%;
         }
 
         .ss-scroll {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             overflow-x: auto;
-            padding: 0 48px 64px;
+            padding-bottom: 8px;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
+            -ms-overflow-style: none;
+            border-radius: 12px;
         }
         .ss-scroll::-webkit-scrollbar { display: none; }
 
@@ -293,19 +151,20 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
         }
 
-        .ss-frame {
+        .phone {
             width: 200px;
             border-radius: 40px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
             position: relative;
+            background: #111;
         }
 
-        .ss-frame .notch {
+        .phone-notch {
             position: absolute;
             top: 0; left: 50%;
             transform: translateX(-50%);
@@ -315,220 +174,121 @@
             z-index: 2;
         }
 
-        .ss-frame img { width: 100%; display: block; }
+        .phone img {
+            width: 100%;
+            display: block;
+        }
 
         .ss-caption {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--muted);
+            font-size: 0.6875rem;
+            color: rgba(255,255,255,0.45);
+            font-weight: 500;
             text-align: center;
             max-width: 180px;
         }
 
         /* ── FOOTER ──────────────────────────────────────────── */
         footer {
-            padding: 48px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .footer-logo {
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
-
-        .footer-links a {
-            font-size: 13px;
-            color: var(--muted);
-            transition: color 0.15s;
-        }
-        .footer-links a:hover { color: var(--text); }
-
-        .footer-copy {
-            font-size: 13px;
-            color: var(--muted);
+            margin: 0 auto;
+            width: 100%;
+            max-width: 72rem;
+            padding: 0.5rem 2.5rem 2.5rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
         }
 
         /* ── RESPONSIVE ──────────────────────────────────────── */
-        @media (max-width: 768px) {
-            nav { padding: 20px 24px; }
-            #features { padding: 72px 24px; }
-            .ss-scroll { padding: 0 24px 48px; }
-            footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
-
-            .phones { height: 420px; }
-            .phone-c { width: 190px; }
-            .phone-l { width: 155px; transform: translateX(-265px) rotate(-4deg); }
-            .phone-r { width: 155px; transform: translateX(110px) rotate(4deg); }
-        }
-
-        @media (max-width: 480px) {
-            .phone-l, .phone-r { display: none; }
-            .phones { height: 380px; }
-            .phone-c { width: 200px; }
-            .nav-right li:nth-child(1) { display: none; }
+        @media (max-width: 640px) {
+            header { padding: 1.5rem 1.25rem 0.75rem; }
+            main   { padding: 0 1.25rem 3rem; gap: 2rem; }
+            footer { padding: 0.5rem 1.25rem 2rem; }
+            h1 { font-size: 1.875rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── NAV ──────────────────────────────────────────────────── -->
-<nav>
-    <a href="/" class="logo">
-        <div class="logo-icon">
-            <img src="images/icon.png" alt=""
-                 onerror="this.style.display='none';this.parentElement.textContent='T'">
-        </div>
-        Tracklytics
-    </a>
-    <ul class="nav-right">
-        <li><a href="#features">Features</a></li>
-        <li><a href="privacy.html">Privacy</a></li>
-        <li><a href="mailto:ravewithme@gmail.com">Support</a></li>
-    </ul>
-</nav>
+<header>
+    <nav>
+        <a href="/" class="logo">Tracklytics</a>
+        <ul class="nav-links">
+            <li><a href="mailto:ravewithme@gmail.com">Support</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+    </nav>
+</header>
 
-<!-- ── HERO ─────────────────────────────────────────────────── -->
-<div class="hero">
-    <h1>Your job search,<br>finally organized</h1>
-    <p class="hero-sub">Track every application from applied to offer — with visual analytics, AI-powered import, and iCloud sync.</p>
+<main>
+    <!-- Hero text -->
+    <section>
+        <p class="eyebrow">Your job search, organized</p>
+        <h1>Track every application.<br>Land the job.</h1>
+        <p class="hero-body">Tracklytics keeps your applications, analytics, and progress organized throughout your job search — without spreadsheets or scattered notes.</p>
 
-    <div class="badge-wrap">
-        <div class="appstore-btn">
-            <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <div class="btn-text">
-                <span class="t1">Download on the</span>
-                <span class="t2">App Store</span>
-            </div>
+        <div class="feature-lines">
+            <p>Track applications across every stage, from applied to offer.</p>
+            <p>Visualize your pipeline with a Sankey chart and contribution graph.</p>
+            <p>Import applications by scanning any screenshot — fully on-device.</p>
+            <p>Sync across all your Apple devices with iCloud. Five home screen widgets included.</p>
         </div>
-        <span class="soon">Coming Soon</span>
-    </div>
 
-    <!-- 3-phone cluster -->
-    <div class="phones">
-        <div class="phone phone-l">
-            <div class="phone-notch"></div>
-            <img src="images/03-apply-smarter-with-ai.png" alt="AI Import">
+        <div class="cta-row">
+            <div class="cta-btn">Coming Soon on the App Store</div>
+            <span class="cta-note">Available on iPhone, iPad &amp; Mac</span>
         </div>
-        <div class="phone phone-c">
-            <div class="phone-notch"></div>
-            <img src="images/01-own-your-job-search.png" alt="Today">
-        </div>
-        <div class="phone phone-r">
-            <div class="phone-notch"></div>
-            <img src="images/04-your-journey-at-a-glance.png" alt="Analytics">
-        </div>
-    </div>
-</div>
+    </section>
 
-<!-- ── FEATURES ──────────────────────────────────────────────── -->
-<section id="features">
-    <ul class="feat-list">
-        <li class="feat-item">
-            <span class="feat-num">01</span>
-            <div class="feat-body">
-                <h3>Visual Pipeline</h3>
-                <p>A Sankey chart shows how your applications flow from applied through interviews to offers. Spot where you're losing traction at a glance.</p>
+    <!-- Screenshots -->
+    <section class="ss-section">
+        <div class="ss-scroll">
+            <div class="ss-item">
+                <div class="phone">
+                    <div class="phone-notch"></div>
+                    <img src="images/01-own-your-job-search.png" alt="Own Your Job Search">
+                </div>
+                <span class="ss-caption">Own Your Job Search</span>
             </div>
-        </li>
-        <li class="feat-item">
-            <span class="feat-num">02</span>
-            <div class="feat-body">
-                <h3>AI Screenshot Import</h3>
-                <p>Snap a screenshot of any email or job listing. Tracklytics extracts the company, role, and status automatically — all on-device, no data sent anywhere.</p>
+            <div class="ss-item">
+                <div class="phone">
+                    <div class="phone-notch"></div>
+                    <img src="images/02-every-opportunity-tracked.png" alt="Every Opportunity Tracked">
+                </div>
+                <span class="ss-caption">Every Opportunity Tracked</span>
             </div>
-        </li>
-        <li class="feat-item">
-            <span class="feat-num">03</span>
-            <div class="feat-body">
-                <h3>iCloud Sync & Widgets</h3>
-                <p>Your data syncs across all your Apple devices via iCloud. Five home screen widgets keep your progress visible without opening the app.</p>
+            <div class="ss-item">
+                <div class="phone">
+                    <div class="phone-notch"></div>
+                    <img src="images/03-apply-smarter-with-ai.png" alt="Apply Smarter with AI">
+                </div>
+                <span class="ss-caption">Apply Smarter with AI</span>
             </div>
-        </li>
-        <li class="feat-item">
-            <span class="feat-num">04</span>
-            <div class="feat-body">
-                <h3>Analytics & Goal Tracking</h3>
-                <p>Contribution graphs, response rates, and a weekly application goal help you stay consistent and understand what's working.</p>
+            <div class="ss-item">
+                <div class="phone">
+                    <div class="phone-notch"></div>
+                    <img src="images/04-your-journey-at-a-glance.png" alt="Your Journey at a Glance">
+                </div>
+                <span class="ss-caption">Your Journey at a Glance</span>
             </div>
-        </li>
-    </ul>
-</section>
+            <div class="ss-item">
+                <div class="phone">
+                    <div class="phone-notch"></div>
+                    <img src="images/05-see-exactly-where-you-stand.png" alt="See Exactly Where You Stand">
+                </div>
+                <span class="ss-caption">See Exactly Where You Stand</span>
+            </div>
+            <div class="ss-item">
+                <div class="phone">
+                    <div class="phone-notch"></div>
+                    <img src="images/06-stay-on-track-widgets.png" alt="Stay on Track with Widgets">
+                </div>
+                <span class="ss-caption">Stay on Track with Widgets</span>
+            </div>
+        </div>
+    </section>
+</main>
 
-<div class="divider"></div>
-
-<!-- ── SCREENSHOTS ───────────────────────────────────────────── -->
-<section id="screenshots">
-    <div class="ss-heading">
-        <h2>See it in action</h2>
-        <p>Everything you need, nothing you don't.</p>
-    </div>
-
-    <div class="ss-scroll">
-        <div class="ss-item">
-            <div class="ss-frame">
-                <div class="notch"></div>
-                <img src="images/01-own-your-job-search.png" alt="Own Your Job Search">
-            </div>
-            <span class="ss-caption">Own Your Job Search</span>
-        </div>
-        <div class="ss-item">
-            <div class="ss-frame">
-                <div class="notch"></div>
-                <img src="images/02-every-opportunity-tracked.png" alt="Every Opportunity Tracked">
-            </div>
-            <span class="ss-caption">Every Opportunity Tracked</span>
-        </div>
-        <div class="ss-item">
-            <div class="ss-frame">
-                <div class="notch"></div>
-                <img src="images/03-apply-smarter-with-ai.png" alt="Apply Smarter with AI">
-            </div>
-            <span class="ss-caption">Apply Smarter with AI</span>
-        </div>
-        <div class="ss-item">
-            <div class="ss-frame">
-                <div class="notch"></div>
-                <img src="images/04-your-journey-at-a-glance.png" alt="Your Journey at a Glance">
-            </div>
-            <span class="ss-caption">Your Journey at a Glance</span>
-        </div>
-        <div class="ss-item">
-            <div class="ss-frame">
-                <div class="notch"></div>
-                <img src="images/05-see-exactly-where-you-stand.png" alt="See Exactly Where You Stand">
-            </div>
-            <span class="ss-caption">See Exactly Where You Stand</span>
-        </div>
-        <div class="ss-item">
-            <div class="ss-frame">
-                <div class="notch"></div>
-                <img src="images/06-stay-on-track-widgets.png" alt="Stay on Track with Widgets">
-            </div>
-            <span class="ss-caption">Stay on Track with Widgets</span>
-        </div>
-    </div>
-</section>
-
-<!-- ── FOOTER ────────────────────────────────────────────────── -->
 <footer>
-    <span class="footer-logo">Tracklytics</span>
-    <ul class="footer-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="mailto:ravewithme@gmail.com">Support</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 Tracklytics. All rights reserved.</p>
+    <p>© 2026 Tracklytics. Built for a more organized job search.</p>
 </footer>
 
 </body>
