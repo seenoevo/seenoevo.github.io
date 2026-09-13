@@ -12,13 +12,10 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg:      #ffffff;
-            --gray:    #f5f5f7;
-            --border:  #e5e5ea;
-            --text:    #1d1d1f;
-            --text-2:  #6e6e73;
-            --accent:  #5856d6;
-            --radius:  16px;
+            --bg:     #000000;
+            --text:   #ffffff;
+            --muted:  rgba(255,255,255,0.5);
+            --border: rgba(255,255,255,0.1);
         }
 
         html { scroll-behavior: smooth; }
@@ -35,94 +32,80 @@
 
         /* ── NAV ─────────────────────────────────────────────── */
         nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 0 48px;
-            height: 60px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 24px 48px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 8px;
             font-weight: 700;
-            font-size: 16px;
-            color: var(--text);
+            font-size: 15px;
         }
 
-        .logo-mark {
-            width: 30px; height: 30px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #5856d6, #3b82f6);
+        .logo-icon {
+            width: 28px; height: 28px;
+            border-radius: 7px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #222;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
-            overflow: hidden;
-            flex-shrink: 0;
         }
 
-        .logo-mark img {
+        .logo-icon img {
             width: 100%; height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 7px;
         }
 
-        .nav-links {
+        .nav-right {
             display: flex;
             gap: 28px;
             list-style: none;
         }
 
-        .nav-links a {
-            font-size: 14px;
+        .nav-right a {
+            font-size: 13px;
             font-weight: 500;
-            color: var(--text-2);
+            color: var(--muted);
             transition: color 0.15s;
         }
 
-        .nav-links a:hover { color: var(--text); }
+        .nav-right a:hover { color: var(--text); }
 
         /* ── HERO ────────────────────────────────────────────── */
         .hero {
             text-align: center;
-            padding: 100px 24px 80px;
-        }
-
-        .hero-tag {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent);
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
+            padding: 80px 24px 0;
         }
 
         .hero h1 {
-            font-size: clamp(36px, 5.5vw, 64px);
+            font-size: clamp(38px, 5.5vw, 68px);
             font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.1;
-            color: var(--text);
+            letter-spacing: -2px;
+            line-height: 1.08;
             margin-bottom: 20px;
         }
 
         .hero-sub {
-            font-size: 18px;
-            color: var(--text-2);
-            max-width: 500px;
-            margin: 0 auto 40px;
-            line-height: 1.65;
+            font-size: 17px;
+            color: var(--muted);
+            max-width: 440px;
+            margin: 0 auto 36px;
+            line-height: 1.6;
         }
 
         /* App Store badge */
@@ -131,159 +114,174 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            margin-bottom: 72px;
         }
 
-        .appstore {
+        .appstore-btn {
             display: inline-flex;
             align-items: center;
-            gap: 11px;
-            background: #000;
-            color: white;
+            gap: 10px;
+            background: white;
+            color: black;
             border-radius: 12px;
             padding: 10px 20px;
             cursor: default;
-            opacity: 0.4;
+            opacity: 0.35;
         }
 
-        .appstore svg { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
+        .appstore-btn svg { width: 20px; height: 20px; fill: black; flex-shrink: 0; }
 
-        .appstore-text { text-align: left; }
-        .appstore-text span { display: block; }
-        .appstore-text .t1 { font-size: 10px; opacity: 0.8; letter-spacing: 0.3px; }
-        .appstore-text .t2 { font-size: 18px; font-weight: 600; line-height: 1.1; }
+        .btn-text span { display: block; }
+        .btn-text .t1 { font-size: 9px; letter-spacing: 0.3px; opacity: 0.7; }
+        .btn-text .t2 { font-size: 17px; font-weight: 700; line-height: 1.1; }
 
         .soon {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 1.5px;
+            color: var(--muted);
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        /* Hero phone */
-        .hero-phone {
-            margin: 64px auto 0;
-            width: 260px;
+        /* ── PHONE CLUSTER ───────────────────────────────────── */
+        .phones {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+            height: 540px;
         }
 
-        .phone-frame {
-            background: var(--gray);
-            border: 1px solid var(--border);
-            border-radius: 48px;
+        .phone {
+            position: absolute;
+            border-radius: 44px;
             overflow: hidden;
-            box-shadow: 0 32px 64px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06);
-            position: relative;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .phone img {
+            width: 100%;
+            display: block;
         }
 
         .phone-notch {
             position: absolute;
             top: 0; left: 50%;
             transform: translateX(-50%);
-            width: 78px; height: 24px;
-            background: #1d1d1f;
-            border-radius: 0 0 14px 14px;
+            width: 72px; height: 22px;
+            background: #000;
+            border-radius: 0 0 12px 12px;
             z-index: 2;
         }
 
-        .phone-frame img {
-            width: 100%;
-            display: block;
+        /* Center phone */
+        .phone-c {
+            width: 240px;
+            z-index: 3;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08);
         }
 
-        .phone-placeholder {
-            width: 100%;
-            aspect-ratio: 9 / 19.5;
-            background: linear-gradient(160deg, #ececf0, #dcdce0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 8px;
-            color: #aeaeb2;
-            font-size: 12px;
-            font-weight: 500;
+        /* Left phone */
+        .phone-l {
+            width: 200px;
+            z-index: 2;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-340px) rotate(-4deg);
+            opacity: 0.7;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.6);
         }
 
-        /* ── SECTION COMMON ──────────────────────────────────── */
-        section { padding: 88px 24px; }
-
-        .wrap { max-width: 1060px; margin: 0 auto; }
-
-        .section-label {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: clamp(26px, 3.5vw, 40px);
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.15;
-            margin-bottom: 14px;
-        }
-
-        .section-sub {
-            text-align: center;
-            font-size: 16px;
-            color: var(--text-2);
-            max-width: 480px;
-            margin: 0 auto 56px;
-            line-height: 1.65;
+        /* Right phone */
+        .phone-r {
+            width: 200px;
+            z-index: 2;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(140px) rotate(4deg);
+            opacity: 0.7;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.6);
         }
 
         /* ── FEATURES ────────────────────────────────────────── */
-        #features { background: var(--gray); }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+        #features {
+            padding: 100px 48px;
+            max-width: 680px;
+            margin: 0 auto;
         }
 
-        .feat {
-            background: white;
-            border-radius: var(--radius);
-            padding: 28px 24px;
-            border: 1px solid var(--border);
-        }
-
-        .feat-icon {
-            width: 44px; height: 44px;
-            border-radius: 12px;
-            background: var(--gray);
+        .feat-list {
+            list-style: none;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 16px;
+            flex-direction: column;
+            gap: 32px;
         }
 
-        .feat h3 {
-            font-size: 15px;
+        .feat-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .feat-num {
+            font-size: 12px;
             font-weight: 700;
-            margin-bottom: 6px;
+            color: var(--muted);
+            min-width: 24px;
+            padding-top: 3px;
         }
 
-        .feat p {
+        .feat-body h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .feat-body p {
             font-size: 14px;
-            color: var(--text-2);
+            color: var(--muted);
             line-height: 1.6;
         }
 
+        /* ── DIVIDER ─────────────────────────────────────────── */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: var(--border);
+        }
+
         /* ── SCREENSHOTS ─────────────────────────────────────── */
-        #screenshots { background: white; padding-bottom: 0; }
+        #screenshots {
+            padding: 100px 0 0;
+        }
+
+        .ss-heading {
+            text-align: center;
+            padding: 0 24px;
+            margin-bottom: 56px;
+        }
+
+        .ss-heading h2 {
+            font-size: clamp(24px, 3vw, 36px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .ss-heading p {
+            font-size: 15px;
+            color: var(--muted);
+        }
 
         .ss-scroll {
             display: flex;
-            gap: 18px;
+            gap: 16px;
             overflow-x: auto;
-            padding: 8px 24px 72px;
+            padding: 0 48px 64px;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
         }
@@ -295,64 +293,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
-        .ss-item .phone-frame { width: 200px; border-radius: 40px; }
-        .ss-item .phone-notch { width: 70px; height: 22px; border-radius: 0 0 12px 12px; }
+        .ss-frame {
+            width: 200px;
+            border-radius: 40px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .ss-frame .notch {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 68px; height: 20px;
+            background: #000;
+            border-radius: 0 0 10px 10px;
+            z-index: 2;
+        }
+
+        .ss-frame img { width: 100%; display: block; }
 
         .ss-caption {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-2);
-        }
-
-        /* ── PLATFORMS ───────────────────────────────────────── */
-        #platforms { background: var(--gray); }
-
-        .platforms-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .platform-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 40px 32px;
+            color: var(--muted);
             text-align: center;
-        }
-
-        .platform-card .icon { font-size: 44px; margin-bottom: 14px; }
-
-        .platform-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .platform-card p {
-            font-size: 14px;
-            color: var(--text-2);
-            line-height: 1.6;
+            max-width: 180px;
         }
 
         /* ── FOOTER ──────────────────────────────────────────── */
         footer {
-            padding: 40px 48px;
+            padding: 48px;
             border-top: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
             flex-wrap: wrap;
+            gap: 16px;
         }
 
         .footer-logo {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            color: var(--text);
         }
 
         .footer-links {
@@ -363,31 +349,34 @@
 
         .footer-links a {
             font-size: 13px;
-            color: var(--text-2);
+            color: var(--muted);
             transition: color 0.15s;
         }
         .footer-links a:hover { color: var(--text); }
 
         .footer-copy {
             font-size: 13px;
-            color: var(--text-2);
+            color: var(--muted);
         }
 
         /* ── RESPONSIVE ──────────────────────────────────────── */
         @media (max-width: 768px) {
-            nav { padding: 0 20px; }
-            .nav-links { gap: 16px; }
-            section { padding: 64px 20px; }
-            .hero { padding: 72px 20px 64px; }
-            .features-grid { grid-template-columns: 1fr 1fr; }
-            .platforms-grid { grid-template-columns: 1fr; }
-            .hero-phone { width: 210px; }
-            footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
+            nav { padding: 20px 24px; }
+            #features { padding: 72px 24px; }
+            .ss-scroll { padding: 0 24px 48px; }
+            footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+
+            .phones { height: 420px; }
+            .phone-c { width: 190px; }
+            .phone-l { width: 155px; transform: translateX(-265px) rotate(-4deg); }
+            .phone-r { width: 155px; transform: translateX(110px) rotate(4deg); }
         }
 
         @media (max-width: 480px) {
-            .features-grid { grid-template-columns: 1fr; }
-            .nav-links li:nth-child(2) { display: none; }
+            .phone-l, .phone-r { display: none; }
+            .phones { height: 380px; }
+            .phone-c { width: 200px; }
+            .nav-right li:nth-child(1) { display: none; }
         }
     </style>
 </head>
@@ -396,15 +385,14 @@
 <!-- ── NAV ──────────────────────────────────────────────────── -->
 <nav>
     <a href="/" class="logo">
-        <div class="logo-mark">
+        <div class="logo-icon">
             <img src="images/icon.png" alt=""
                  onerror="this.style.display='none';this.parentElement.textContent='T'">
         </div>
         Tracklytics
     </a>
-    <ul class="nav-links">
+    <ul class="nav-right">
         <li><a href="#features">Features</a></li>
-        <li><a href="#screenshots">Screenshots</a></li>
         <li><a href="privacy.html">Privacy</a></li>
         <li><a href="mailto:ravewithme@gmail.com">Support</a></li>
     </ul>
@@ -412,14 +400,13 @@
 
 <!-- ── HERO ─────────────────────────────────────────────────── -->
 <div class="hero">
-    <div class="hero-tag">iOS &amp; macOS</div>
     <h1>Your job search,<br>finally organized</h1>
     <p class="hero-sub">Track every application from applied to offer — with visual analytics, AI-powered import, and iCloud sync.</p>
 
     <div class="badge-wrap">
-        <div class="appstore">
+        <div class="appstore-btn">
             <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            <div class="appstore-text">
+            <div class="btn-text">
                 <span class="t1">Download on the</span>
                 <span class="t2">App Store</span>
             </div>
@@ -427,128 +414,108 @@
         <span class="soon">Coming Soon</span>
     </div>
 
-    <div class="hero-phone">
-        <div class="phone-frame">
+    <!-- 3-phone cluster -->
+    <div class="phones">
+        <div class="phone phone-l">
             <div class="phone-notch"></div>
-            <img src="images/01-own-your-job-search.png" alt="Tracklytics app">
+            <img src="images/03-apply-smarter-with-ai.png" alt="AI Import">
+        </div>
+        <div class="phone phone-c">
+            <div class="phone-notch"></div>
+            <img src="images/01-own-your-job-search.png" alt="Today">
+        </div>
+        <div class="phone phone-r">
+            <div class="phone-notch"></div>
+            <img src="images/04-your-journey-at-a-glance.png" alt="Analytics">
         </div>
     </div>
 </div>
 
 <!-- ── FEATURES ──────────────────────────────────────────────── -->
 <section id="features">
-    <div class="wrap">
-        <div class="section-label">Features</div>
-        <h2 class="section-title">Everything you need to land the job</h2>
-        <p class="section-sub">Built for focused job seekers who want clarity, not chaos.</p>
-
-        <div class="features-grid">
-            <div class="feat">
-                <div class="feat-icon">📊</div>
+    <ul class="feat-list">
+        <li class="feat-item">
+            <span class="feat-num">01</span>
+            <div class="feat-body">
                 <h3>Visual Pipeline</h3>
-                <p>A Sankey chart shows how your applications flow from applied through interviews to offers. Spot bottlenecks instantly.</p>
+                <p>A Sankey chart shows how your applications flow from applied through interviews to offers. Spot where you're losing traction at a glance.</p>
             </div>
-            <div class="feat">
-                <div class="feat-icon">📸</div>
+        </li>
+        <li class="feat-item">
+            <span class="feat-num">02</span>
+            <div class="feat-body">
                 <h3>AI Screenshot Import</h3>
-                <p>Snap a screenshot of any email or job listing and Tracklytics extracts the details automatically — no typing required.</p>
+                <p>Snap a screenshot of any email or job listing. Tracklytics extracts the company, role, and status automatically — all on-device, no data sent anywhere.</p>
             </div>
-            <div class="feat">
-                <div class="feat-icon">☁️</div>
-                <h3>iCloud Sync</h3>
-                <p>Your data syncs seamlessly across all your devices via iCloud. Private, secure, and always up to date.</p>
+        </li>
+        <li class="feat-item">
+            <span class="feat-num">03</span>
+            <div class="feat-body">
+                <h3>iCloud Sync & Widgets</h3>
+                <p>Your data syncs across all your Apple devices via iCloud. Five home screen widgets keep your progress visible without opening the app.</p>
             </div>
-            <div class="feat">
-                <div class="feat-icon">🔲</div>
-                <h3>Home Screen Widgets</h3>
-                <p>Check your stats, streak, and recent activity without opening the app. Five widget types to choose from.</p>
+        </li>
+        <li class="feat-item">
+            <span class="feat-num">04</span>
+            <div class="feat-body">
+                <h3>Analytics & Goal Tracking</h3>
+                <p>Contribution graphs, response rates, and a weekly application goal help you stay consistent and understand what's working.</p>
             </div>
-            <div class="feat">
-                <div class="feat-icon">📈</div>
-                <h3>Analytics</h3>
-                <p>Contribution graphs and response rate trends help you understand your momentum and refine your strategy.</p>
-            </div>
-            <div class="feat">
-                <div class="feat-icon">🎯</div>
-                <h3>Goal Tracking</h3>
-                <p>Set a weekly application goal and track your streak. Stay motivated with visible progress every day.</p>
-            </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </section>
+
+<div class="divider"></div>
 
 <!-- ── SCREENSHOTS ───────────────────────────────────────────── -->
 <section id="screenshots">
-    <div class="wrap">
-        <div class="section-label">In the app</div>
-        <h2 class="section-title">See it in action</h2>
-        <p class="section-sub">Designed to be beautiful and intuitive, down to the last detail.</p>
+    <div class="ss-heading">
+        <h2>See it in action</h2>
+        <p>Everything you need, nothing you don't.</p>
     </div>
 
     <div class="ss-scroll">
         <div class="ss-item">
-            <div class="phone-frame">
-                <div class="phone-notch"></div>
+            <div class="ss-frame">
+                <div class="notch"></div>
                 <img src="images/01-own-your-job-search.png" alt="Own Your Job Search">
             </div>
             <span class="ss-caption">Own Your Job Search</span>
         </div>
         <div class="ss-item">
-            <div class="phone-frame">
-                <div class="phone-notch"></div>
+            <div class="ss-frame">
+                <div class="notch"></div>
                 <img src="images/02-every-opportunity-tracked.png" alt="Every Opportunity Tracked">
             </div>
             <span class="ss-caption">Every Opportunity Tracked</span>
         </div>
         <div class="ss-item">
-            <div class="phone-frame">
-                <div class="phone-notch"></div>
+            <div class="ss-frame">
+                <div class="notch"></div>
                 <img src="images/03-apply-smarter-with-ai.png" alt="Apply Smarter with AI">
             </div>
             <span class="ss-caption">Apply Smarter with AI</span>
         </div>
         <div class="ss-item">
-            <div class="phone-frame">
-                <div class="phone-notch"></div>
+            <div class="ss-frame">
+                <div class="notch"></div>
                 <img src="images/04-your-journey-at-a-glance.png" alt="Your Journey at a Glance">
             </div>
             <span class="ss-caption">Your Journey at a Glance</span>
         </div>
         <div class="ss-item">
-            <div class="phone-frame">
-                <div class="phone-notch"></div>
+            <div class="ss-frame">
+                <div class="notch"></div>
                 <img src="images/05-see-exactly-where-you-stand.png" alt="See Exactly Where You Stand">
             </div>
             <span class="ss-caption">See Exactly Where You Stand</span>
         </div>
         <div class="ss-item">
-            <div class="phone-frame">
-                <div class="phone-notch"></div>
+            <div class="ss-frame">
+                <div class="notch"></div>
                 <img src="images/06-stay-on-track-widgets.png" alt="Stay on Track with Widgets">
             </div>
             <span class="ss-caption">Stay on Track with Widgets</span>
-        </div>
-    </div>
-</section>
-
-<!-- ── PLATFORMS ─────────────────────────────────────────────── -->
-<section id="platforms">
-    <div class="wrap">
-        <div class="section-label">Platforms</div>
-        <h2 class="section-title">Native on every Apple device</h2>
-        <p class="section-sub">Built with Swift and SwiftUI for a fast, polished experience everywhere.</p>
-
-        <div class="platforms-grid">
-            <div class="platform-card">
-                <div class="icon">📱</div>
-                <h3>iPhone &amp; iPad</h3>
-                <p>Full-featured iOS app with widgets, notifications, and AI-powered screenshot import. Optimized for every screen size.</p>
-            </div>
-            <div class="platform-card">
-                <div class="icon">💻</div>
-                <h3>Mac</h3>
-                <p>A native macOS app with the same powerful features in a layout designed for larger screens.</p>
-            </div>
         </div>
     </div>
 </section>
