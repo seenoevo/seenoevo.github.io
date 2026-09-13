@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracklytics – Job Application Tracker</title>
+    <meta name="description" content="Track every job application from applied to offer. Visual analytics, AI-powered import, iCloud sync, and home screen widgets for iOS and macOS.">
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:         #080a12;
+            --surface:    #0f1120;
+            --surface2:   #171928;
+            --blue:       #3b82f6;
+            --purple:     #8b5cf6;
+            --blue-light: #60a5fa;
+            --purple-light:#a78bfa;
+            --text:       #ffffff;
+            --text-2:     #94a3b8;
+            --text-3:     #475569;
+            --border:     rgba(255,255,255,0.07);
+            --radius:     20px;
+            --grad:       linear-gradient(135deg, #3b82f6, #8b5cf6);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAV ─────────────────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 0 48px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(8,10,18,0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 34px; height: 34px;
+            background: var(--grad);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -0.5px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .nav-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 9px;
+        }
+
+        .nav-logo-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-2);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: white; }
+
+        /* ─── HERO ────────────────────────────────────────────────────── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 48px 80px;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Background glows */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+        .glow-1 {
+            width: 700px; height: 700px;
+            top: 5%; left: 50%;
+            transform: translateX(-70%);
+            background: rgba(59,130,246,0.18);
+        }
+        .glow-2 {
+            width: 500px; height: 500px;
+            top: 15%; left: 60%;
+            background: rgba(139,92,246,0.18);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139,92,246,0.12);
+            border: 1px solid rgba(139,92,246,0.35);
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--purple-light);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+
+        .hero-pill-dot {
+            width: 6px; height: 6px;
+            background: var(--purple-light);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        h1 {
+            font-size: clamp(42px, 6.5vw, 76px);
+            font-weight: 900;
+            line-height: 1.06;
+            letter-spacing: -2.5px;
+            margin-bottom: 22px;
+        }
+
+        h1 .gradient-text {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            color: var(--text-2);
+            max-width: 540px;
+            margin: 0 auto 44px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* App Store button (Coming Soon) */
+        .appstore-wrap {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .appstore-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 13px;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 14px;
+            padding: 11px 22px;
+            text-decoration: none;
+            cursor: default;
+            opacity: 0.55;
+            transition: opacity 0.2s;
+        }
+
+        .appstore-btn svg {
+            width: 26px; height: 26px;
+            fill: white;
+            flex-shrink: 0;
+        }
+
+        .appstore-btn-text { text-align: left; }
+        .appstore-btn-text .line1 {
+            display: block;
+            font-size: 10px;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.4px;
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+        .appstore-btn-text .line2 {
+            display: block;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            line-height: 1;
+        }
+
+        .coming-soon {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--purple-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ─── PHONE MOCKUPS ───────────────────────────────────────────── */
+        .phones {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 72px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .phone {
+            border-radius: 46px;
+            border: 1.5px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            position: relative;
+            background: var(--surface);
+            box-shadow:
+                0 50px 100px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(255,255,255,0.04) inset;
+        }
+
+        .phone.center { width: 230px; }
+        .phone.side   { width: 190px; opacity: 0.55; transform: translateY(32px) scale(0.94); }
+
+        .phone-notch {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 26px;
+            background: #000;
+            border-radius: 0 0 16px 16px;
+            z-index: 2;
+        }
+
+        .phone img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Gradient placeholder shown when image is missing */
+        .phone-placeholder {
+            width: 100%;
+            aspect-ratio: 9 / 19.5;
+            background: linear-gradient(160deg, var(--surface2), #050508);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .phone-placeholder-icon { font-size: 28px; opacity: 0.25; }
+        .phone-placeholder-label {
+            font-size: 11px;
+            color: var(--text-3);
+            font-weight: 500;
+        }
+
+        /* ─── SHARED SECTION STYLES ───────────────────────────────────── */
+        section { padding: 100px 48px; }
+
+        .wrap { max-width: 1120px; margin: 0 auto; }
+
+        .eyebrow {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--blue-light);
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 46px);
+            font-weight: 800;
+            letter-spacing: -1.2px;
+            line-height: 1.12;
+            margin-bottom: 16px;
+        }
+
+        .section-sub {
+            text-align: center;
+            font-size: 17px;
+            color: var(--text-2);
+            max-width: 540px;
+            margin: 0 auto 64px;
+            line-height: 1.7;
+        }
+
+        /* ─── FEATURES ────────────────────────────────────────────────── */
+        #features { background: var(--surface); }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .feat {
+            background: var(--surface);
+            padding: 36px 32px;
+            transition: background 0.25s;
+        }
+        .feat:hover { background: var(--surface2); }
+
+        .feat-icon {
+            width: 50px; height: 50px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15));
+            border: 1px solid rgba(139,92,246,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .feat h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 9px;
+            letter-spacing: -0.2px;
+        }
+
+        .feat p {
+            font-size: 14px;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        /* ─── SCREENSHOTS ─────────────────────────────────────────────── */
+        #screenshots { background: var(--bg); padding-bottom: 0; }
+
+        .ss-track {
+            display: flex;
+            gap: 22px;
+            overflow-x: auto;
+            padding: 16px 48px 64px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .ss-track::-webkit-scrollbar { display: none; }
+
+        .ss-item {
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .ss-item .phone { width: 210px; }
+
+        .ss-caption {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-2);
+        }
+
+        /* ─── PLATFORMS ───────────────────────────────────────────────── */
+        #platforms { background: var(--surface); }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .platform-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 48px 40px;
+            text-align: center;
+            transition: border-color 0.25s;
+        }
+        .platform-card:hover { border-color: rgba(139,92,246,0.4); }
+
+        .platform-emoji { font-size: 52px; margin-bottom: 18px; }
+
+        .platform-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .platform-card p {
+            font-size: 15px;
+            color: var(--text-2);
+            line-height: 1.65;
+        }
+
+        /* ─── FOOTER ──────────────────────────────────────────────────── */
+        footer {
+            padding: 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-2);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: white; }
+
+        .footer-copy {
+            color: var(--text-3);
+            font-size: 13px;
+        }
+
+        /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .features-grid { grid-template-columns: 1fr 1fr; }
+            .platforms-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            nav { padding: 0 20px; }
+            .nav-links { gap: 18px; }
+            .nav-links li:nth-child(2) { display: none; } /* hide Screenshots link */
+            section { padding: 72px 20px; }
+            .hero { padding: 100px 20px 60px; }
+            h1 { letter-spacing: -1.5px; }
+            .phones { gap: 10px; }
+            .phone.center { width: 170px; }
+            .phone.side { width: 140px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .ss-track { padding: 16px 20px 48px; }
+            .ss-item .phone { width: 170px; }
+            footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────────────── -->
+<nav>
+    <a href="/" class="nav-logo">
+        <div class="nav-logo-icon">
+            <!-- Replace this img with your actual app icon PNG -->
+            <img src="images/icon.png" alt="Tracklytics icon"
+                 onerror="this.style.display='none';this.parentElement.textContent='T'">
+        </div>
+        <span class="nav-logo-name">Tracklytics</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="mailto:ravewithme@gmail.com">Support</a></li>
+    </ul>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────── -->
+<div class="hero">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="hero-inner">
+        <div class="hero-pill">
+            <div class="hero-pill-dot"></div>
+            iOS &amp; macOS
+        </div>
+
+        <h1>Your job search,<br><span class="gradient-text">finally organized</span></h1>
+
+        <p class="hero-sub">
+            Track every application from applied to offer. Visual analytics,
+            AI-powered import, iCloud sync, and home screen widgets — all in one place.
+        </p>
+
+        <div class="appstore-wrap">
+            <!-- App Store badge — update href with your App Store link when live -->
+            <div class="appstore-btn">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                <div class="appstore-btn-text">
+                    <span class="line1">Download on the</span>
+                    <span class="line2">App Store</span>
+                </div>
+            </div>
+            <span class="coming-soon">Coming Soon</span>
+        </div>
+    </div>
+
+    <!-- Hero phone mockups -->
+    <!-- Add your screenshots to the images/ folder using these filenames -->
+    <div class="phones">
+        <div class="phone side">
+            <div class="phone-notch"></div>
+            <img src="images/hero-left.png" alt="Analytics view"
+                 onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>📊</div><div class=\'phone-placeholder-label\'>Analytics</div></div>'">
+        </div>
+        <div class="phone center">
+            <div class="phone-notch"></div>
+            <img src="images/hero-center.png" alt="Today view"
+                 onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>📱</div><div class=\'phone-placeholder-label\'>Today</div></div>'">
+        </div>
+        <div class="phone side">
+            <div class="phone-notch"></div>
+            <img src="images/hero-right.png" alt="Applications list"
+                 onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>📋</div><div class=\'phone-placeholder-label\'>Applications</div></div>'">
+        </div>
+    </div>
+</div>
+
+<!-- ── FEATURES ──────────────────────────────────────────────────────── -->
+<section id="features">
+    <div class="wrap">
+        <div class="eyebrow">Features</div>
+        <h2 class="section-title">Everything you need to<br>land the job</h2>
+        <p class="section-sub">Built for focused job seekers who want clarity, not chaos.</p>
+
+        <div class="features-grid">
+            <div class="feat">
+                <div class="feat-icon">📊</div>
+                <h3>Visual Pipeline</h3>
+                <p>A Sankey chart shows exactly how your applications flow from applied through interviews to offers. Spot bottlenecks instantly.</p>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">📸</div>
+                <h3>AI Screenshot Import</h3>
+                <p>Snap a screenshot of any email or job listing and Tracklytics extracts the company, role, and status automatically — no typing required.</p>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">☁️</div>
+                <h3>iCloud Sync</h3>
+                <p>Your data syncs seamlessly across all your devices via iCloud. Private, secure, and always up to date — no account needed.</p>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">🔲</div>
+                <h3>Home Screen Widgets</h3>
+                <p>Check your stats, streak, and recent activity without opening the app. Five widget types in multiple sizes.</p>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">📈</div>
+                <h3>Application Analytics</h3>
+                <p>Contribution graphs, response rates, and trend insights help you understand your momentum and optimize your strategy.</p>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">🎯</div>
+                <h3>Goal Tracking</h3>
+                <p>Set a daily or weekly application goal and track your streak. Stay motivated with visible progress toward your target.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── SCREENSHOTS ───────────────────────────────────────────────────── -->
+<section id="screenshots">
+    <div class="wrap">
+        <div class="eyebrow">In the app</div>
+        <h2 class="section-title">See it in action</h2>
+        <p class="section-sub">Designed to be beautiful and intuitive, down to the last detail.</p>
+    </div>
+
+    <!-- Horizontal scroll carousel -->
+    <!-- Add screenshots to images/ with the filenames below -->
+    <div class="ss-track">
+        <div class="ss-item">
+            <div class="phone">
+                <div class="phone-notch"></div>
+                <img src="images/ss-today.png" alt="Today view"
+                     onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>🏠</div><div class=\'phone-placeholder-label\'>Today</div></div>'">
+            </div>
+            <span class="ss-caption">Today</span>
+        </div>
+        <div class="ss-item">
+            <div class="phone">
+                <div class="phone-notch"></div>
+                <img src="images/ss-applications.png" alt="Applications list"
+                     onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>📋</div><div class=\'phone-placeholder-label\'>Applications</div></div>'">
+            </div>
+            <span class="ss-caption">Applications</span>
+        </div>
+        <div class="ss-item">
+            <div class="phone">
+                <div class="phone-notch"></div>
+                <img src="images/ss-analytics.png" alt="Analytics"
+                     onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>📊</div><div class=\'phone-placeholder-label\'>Analytics</div></div>'">
+            </div>
+            <span class="ss-caption">Analytics</span>
+        </div>
+        <div class="ss-item">
+            <div class="phone">
+                <div class="phone-notch"></div>
+                <img src="images/ss-add.png" alt="Add application"
+                     onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>➕</div><div class=\'phone-placeholder-label\'>Add Application</div></div>'">
+            </div>
+            <span class="ss-caption">Add Application</span>
+        </div>
+        <div class="ss-item">
+            <div class="phone">
+                <div class="phone-notch"></div>
+                <img src="images/ss-widgets.png" alt="Widgets"
+                     onerror="this.outerHTML='<div class=\'phone-placeholder\'><div class=\'phone-placeholder-icon\'>🔲</div><div class=\'phone-placeholder-label\'>Widgets</div></div>'">
+            </div>
+            <span class="ss-caption">Widgets</span>
+        </div>
+    </div>
+</section>
+
+<!-- ── PLATFORMS ─────────────────────────────────────────────────────── -->
+<section id="platforms">
+    <div class="wrap">
+        <div class="eyebrow">Platforms</div>
+        <h2 class="section-title">Native on every Apple device</h2>
+        <p class="section-sub">Built with Swift and SwiftUI for a fast, polished experience everywhere.</p>
+
+        <div class="platforms-grid">
+            <div class="platform-card">
+                <div class="platform-emoji">📱</div>
+                <h3>iPhone &amp; iPad</h3>
+                <p>Full-featured iOS app with widgets, notifications, and AI-powered screenshot import. Optimized for every screen size.</p>
+            </div>
+            <div class="platform-card">
+                <div class="platform-emoji">💻</div>
+                <h3>Mac</h3>
+                <p>A native macOS app with the same powerful features in a layout designed for larger screens. Work from wherever you're most productive.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────────────── -->
+<footer>
+    <div class="footer-logo">Tracklytics</div>
+    <ul class="footer-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="mailto:ravewithme@gmail.com">Support</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Tracklytics. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
