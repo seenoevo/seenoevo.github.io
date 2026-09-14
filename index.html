@@ -216,6 +216,57 @@
         .ph-3 { width: 19.2%; border-radius: 2.64cqw; z-index: 3; }
         .ph-4 { width: 16.8%; border-radius: 2.08cqw; z-index: 1; }
 
+        /* Load animation: each phone fades in and rises 10px into place,
+           one after another from the first screenshot to the last.
+           Starts once the screenshots have loaded (see script at the bottom). */
+        @keyframes phone-rise {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero text uses the same rise, top to bottom: eyebrow, headline,
+           intro, each feature line, then the App Store button row.
+           (The row is animated, not the badge, so the badge's hover scale still works.) */
+        .js .eyebrow,
+        .js h1,
+        .js .hero-body,
+        .js .feature-lines p,
+        .js .cta-row {
+            animation: phone-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .js .eyebrow                     { animation-delay: 0s; }
+        .js h1                           { animation-delay: 0.1s; }
+        .js .hero-body                   { animation-delay: 0.2s; }
+        .js .feature-lines p:nth-child(1) { animation-delay: 0.3s; }
+        .js .feature-lines p:nth-child(2) { animation-delay: 0.38s; }
+        .js .feature-lines p:nth-child(3) { animation-delay: 0.46s; }
+        .js .feature-lines p:nth-child(4) { animation-delay: 0.54s; }
+        .js .feature-lines p:nth-child(5) { animation-delay: 0.62s; }
+        .js .feature-lines p:nth-child(6) { animation-delay: 0.7s; }
+        .js .cta-row                     { animation-delay: 0.8s; }
+
+        .js .phone-wrap {
+            opacity: 0;
+        }
+        .js .phone-cluster.ready .phone-wrap {
+            animation: phone-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .js .phone-cluster.ready .ph-0 { animation-delay: 0s; }
+        .js .phone-cluster.ready .ph-1 { animation-delay: 0.15s; }
+        .js .phone-cluster.ready .ph-2 { animation-delay: 0.3s; }
+        .js .phone-cluster.ready .ph-3 { animation-delay: 0.45s; }
+        .js .phone-cluster.ready .ph-4 { animation-delay: 0.6s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .js .phone-wrap { opacity: 1; }
+            .js .phone-cluster.ready .phone-wrap,
+            .js .eyebrow,
+            .js h1,
+            .js .hero-body,
+            .js .feature-lines p,
+            .js .cta-row { animation: none; }
+        }
+
         /* ── FOOTER ──────────────────────────────────────────── */
         footer {
             margin: 0 auto;
@@ -260,8 +311,14 @@
                     rgba(0,0,0,0.3) 75%,
                     rgba(0,0,0,0.6) 100%);
             }
+
+            /* Only 3 phones visible, so keep the stagger evenly spaced */
+            .js .phone-cluster.ready .ph-1 { animation-delay: 0s; }
+            .js .phone-cluster.ready .ph-3 { animation-delay: 0.15s; }
+            .js .phone-cluster.ready .ph-4 { animation-delay: 0.3s; }
         }
     </style>
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
@@ -331,6 +388,30 @@
 <footer>
     <p>© 2026 Tracklytics. Built for a more organized job search.</p>
 </footer>
+
+<script>
+    // Start the phone animation once the visible screenshots have loaded,
+    // so it isn't over before the images appear. Falls back after 3s.
+    // Never starts before 0.9s, so the phones follow the hero text.
+    (function () {
+        var minDelay = new Promise(function (resolve) { setTimeout(resolve, 900); });
+        var cluster = document.querySelector('.phone-cluster');
+        var imgs = Array.prototype.filter.call(
+            cluster.querySelectorAll('img'),
+            function (img) { return img.offsetParent !== null; }
+        );
+        var started = false;
+        function start() {
+            if (started) return;
+            started = true;
+            cluster.classList.add('ready');
+        }
+        Promise.all([minDelay].concat(imgs.map(function (img) {
+            return img.decode ? img.decode().catch(function () {}) : Promise.resolve();
+        }))).then(start);
+        setTimeout(start, 3000);
+    })();
+</script>
 
 </body>
 </html>
