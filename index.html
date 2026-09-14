@@ -61,6 +61,7 @@
             width: 100%;
             max-width: 72rem;
             display: grid;
+            grid-template-columns: minmax(0, 1fr);
             gap: 2.5rem;
             padding: 0 2.5rem 4rem;
         }
@@ -157,13 +158,17 @@
             width: 100%;
         }
 
+        /* Sizes are fractions of the cluster width, so the fan
+           shrinks to fit any screen instead of overflowing. */
         .phone-cluster {
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            gap: 1.6%;
+            margin: 0 auto;
+            max-width: 1250px;
+            container-type: inline-size;
         }
-
-        .phone-cluster { gap: 20px; }
 
         .phone-wrap {
             position: relative;
@@ -205,11 +210,11 @@
                 rgba(0,0,0,0.72) 100%);
         }
 
-        .ph-0 { width: 210px; border-radius: 26px; z-index: 1; }
-        .ph-1 { width: 240px; border-radius: 33px; z-index: 3; }
-        .ph-2 { width: 270px; border-radius: 42px; z-index: 5; }
-        .ph-3 { width: 240px; border-radius: 33px; z-index: 3; }
-        .ph-4 { width: 210px; border-radius: 26px; z-index: 1; }
+        .ph-0 { width: 16.8%; border-radius: 2.08cqw; z-index: 1; }
+        .ph-1 { width: 19.2%; border-radius: 2.64cqw; z-index: 3; }
+        .ph-2 { width: 21.6%; border-radius: 3.36cqw; z-index: 5; }
+        .ph-3 { width: 19.2%; border-radius: 2.64cqw; z-index: 3; }
+        .ph-4 { width: 16.8%; border-radius: 2.08cqw; z-index: 1; }
 
         /* ── FOOTER ──────────────────────────────────────────── */
         footer {
@@ -222,18 +227,39 @@
         }
 
         /* ── RESPONSIVE ──────────────────────────────────────── */
-        @media (max-width: 900px) {
-            .phone-cluster { gap: 4px; }
-            .ph-0, .ph-4 { width: 100px; border-radius: 18px; }
-            .ph-1, .ph-3 { width: 135px; border-radius: 23px; }
-            .ph-2         { width: 175px; border-radius: 30px; }
-        }
-
         @media (max-width: 640px) {
             header { padding: 1.5rem 1.25rem 0.75rem; }
             main   { padding: 0 1.25rem 3rem; gap: 2rem; }
             footer { padding: 0.5rem 1.25rem 2rem; }
             h1 { font-size: 1.875rem; }
+
+            /* Phones: 3-phone overlapping fan that fits the screen width.
+               Screenshot 2 left, 4 centre (largest, in front), 5 right. */
+            .phone-cluster { gap: 0; }
+
+            .ph-0, .ph-2 { display: none; }
+
+            .ph-1 { width: 34%; border-radius: 4.7cqw; margin-right: -6%; z-index: 3; }
+            .ph-4 { width: 34%; border-radius: 4.7cqw; margin-left: -6%; z-index: 3; }
+            .ph-3 {
+                width: 42%;
+                border-radius: 6.5cqw;
+                z-index: 5;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            }
+
+            /* Centre gets the subtle fade; sides get the standard fade */
+            .ph-3::after {
+                background: linear-gradient(to bottom,
+                    rgba(0,0,0,0) 75%,
+                    rgba(0,0,0,0.15) 100%);
+            }
+            .ph-4::after {
+                background: linear-gradient(to bottom,
+                    rgba(0,0,0,0) 45%,
+                    rgba(0,0,0,0.3) 75%,
+                    rgba(0,0,0,0.6) 100%);
+            }
         }
     </style>
 </head>
